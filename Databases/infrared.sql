@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `infrared` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `infrared`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: infrared
@@ -29,7 +27,7 @@ CREATE TABLE `ir_commands` (
   `command_alias` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `command_alias_UNIQUE` (`command_alias`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +36,7 @@ CREATE TABLE `ir_commands` (
 
 LOCK TABLES `ir_commands` WRITE;
 /*!40000 ALTER TABLE `ir_commands` DISABLE KEYS */;
-INSERT INTO `ir_commands` VALUES (1,'0'),(2,'1'),(3,'2'),(4,'3'),(5,'4'),(6,'5'),(7,'6'),(8,'7'),(9,'8'),(10,'9'),(11,'Function'),(13,'Mute/Unmute'),(14,'On/Off'),(12,'Source'),(16,'Volume_Down'),(15,'Volume_Up');
+INSERT INTO `ir_commands` VALUES (1,'0'),(2,'1'),(3,'2'),(4,'3'),(5,'4'),(6,'5'),(7,'6'),(8,'7'),(9,'8'),(10,'9'),(17,'AuxOpt'),(11,'Function'),(13,'Mute/Unmute'),(14,'On/Off'),(12,'Source'),(16,'Volume_Down'),(15,'Volume_Up');
 /*!40000 ALTER TABLE `ir_commands` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,7 +60,7 @@ CREATE TABLE `ir_device_commands` (
   KEY `fk_device_idx` (`device_id`),
   CONSTRAINT `fk_command` FOREIGN KEY (`command_id`) REFERENCES `ir_commands` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `fk_device` FOREIGN KEY (`device_id`) REFERENCES `ir_devices` (`id`) ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,6 +69,7 @@ CREATE TABLE `ir_device_commands` (
 
 LOCK TABLES `ir_device_commands` WRITE;
 /*!40000 ALTER TABLE `ir_device_commands` DISABLE KEYS */;
+INSERT INTO `ir_device_commands` VALUES (1,1,15,17,'2C2C','17'),(2,1,16,17,'2C2C','16'),(3,1,14,17,'2C2C','1E'),(4,1,13,17,'2C2C','1F'),(5,1,11,17,'2C2C','3'),(6,1,17,17,'2C2C','B6');
 /*!40000 ALTER TABLE `ir_device_commands` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +87,7 @@ CREATE TABLE `ir_devices` (
   `manufacturer` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `device_name_UNIQUE` (`device_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +96,7 @@ CREATE TABLE `ir_devices` (
 
 LOCK TABLES `ir_devices` WRITE;
 /*!40000 ALTER TABLE `ir_devices` DISABLE KEYS */;
-INSERT INTO `ir_devices` VALUES (1,'LG Home Theater','Home Theater','LG');
+INSERT INTO `ir_devices` VALUES (1,'LG Home Theater','Home Theater','LG'),(2,'Samsung TV','Television','Samsung');
 /*!40000 ALTER TABLE `ir_devices` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -110,4 +109,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-20 23:26:17
+-- Dump completed on 2022-03-22 22:13:43
