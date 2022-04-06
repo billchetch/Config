@@ -1,0 +1,1 @@
+For plex media player conf beware of the unique client ID ... probably best to use the one generated during install.
