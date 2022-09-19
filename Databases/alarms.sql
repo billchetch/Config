@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `alarms` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE  IF NOT EXISTS `alarms` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `alarms`;
--- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: alarms
 -- ------------------------------------------------------
--- Server version	5.7.19-log
+-- Server version	8.0.30
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -18,6 +18,60 @@ USE `alarms`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `adm_event_log`
+--
+
+DROP TABLE IF EXISTS `adm_event_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `adm_event_log` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `event_source` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `event_name` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `event_data` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `event_info` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `adm_event_log`
+--
+
+LOCK TABLES `adm_event_log` WRITE;
+/*!40000 ALTER TABLE `adm_event_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `adm_event_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `adm_snapshot_log`
+--
+
+DROP TABLE IF EXISTS `adm_snapshot_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `adm_snapshot_log` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `state_source` varchar(127) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `state_name` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `state_description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `state` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `adm_snapshot_log`
+--
+
+LOCK TABLES `adm_snapshot_log` WRITE;
+/*!40000 ALTER TABLE `adm_snapshot_log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `adm_snapshot_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `alarm_log`
 --
 
@@ -25,8 +79,8 @@ DROP TABLE IF EXISTS `alarm_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `alarm_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `alarm_id` int(10) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `alarm_id` int unsigned NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `alarm_state` enum('ON','OFF','DISABLED','CRITICAL','SEVERE','MODERATE','MINOR') NOT NULL,
   `alarm_message` varchar(128) DEFAULT NULL,
@@ -34,7 +88,7 @@ CREATE TABLE `alarm_log` (
   PRIMARY KEY (`id`),
   KEY `fk_alarm_idx` (`alarm_id`),
   CONSTRAINT `fk_alarm` FOREIGN KEY (`alarm_id`) REFERENCES `alarms` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=156809 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=156809 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,17 +109,17 @@ DROP TABLE IF EXISTS `alarms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `alarms` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `alarm_id` varchar(8) NOT NULL,
   `alarm_name` varchar(45) NOT NULL,
   `alarm_source` varchar(45) DEFAULT NULL,
-  `pin_number` int(11) DEFAULT NULL,
-  `noise_threshold` int(11) DEFAULT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT '1',
+  `pin_number` int DEFAULT NULL,
+  `noise_threshold` int DEFAULT NULL,
+  `active` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `device_id_UNIQUE` (`alarm_id`),
   UNIQUE KEY `pin_number_UNIQUE` (`pin_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +140,7 @@ DROP TABLE IF EXISTS `api_requests`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `api_requests` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `base_url` varchar(255) NOT NULL,
   `request` varchar(255) NOT NULL,
@@ -96,7 +150,7 @@ CREATE TABLE `api_requests` (
   `last_updated` timestamp NULL DEFAULT NULL,
   `last_requested` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,13 +170,13 @@ DROP TABLE IF EXISTS `sys_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sys_info` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `data_name` varchar(45) NOT NULL,
   `data_value` text,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `data_name_UNIQUE` (`data_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,6 +185,7 @@ CREATE TABLE `sys_info` (
 
 LOCK TABLES `sys_info` WRITE;
 /*!40000 ALTER TABLE `sys_info` DISABLE KEYS */;
+INSERT INTO `sys_info` VALUES (1,'COM3:pilot','{\"Enabled\":true}','2022-09-15 07:58:11'),(2,'COM3:buzzer','{\"Enabled\":true}','2022-09-15 07:58:11'),(3,'COM3:gs','{\"Enabled\":true}','2022-09-15 07:58:11'),(4,'COM3:hw','{\"Enabled\":true}','2022-09-15 07:58:11'),(5,'COM3:iv','{\"Enabled\":true}','2022-09-15 07:58:11');
 /*!40000 ALTER TABLE `sys_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,13 +197,13 @@ DROP TABLE IF EXISTS `sys_logs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sys_logs` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `log_name` varchar(45) NOT NULL,
   `log_entry_type` enum('INFO','WARNING','EXCEPTION') NOT NULL,
   `log_entry` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,4 +224,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-23 20:18:01
+-- Dump completed on 2022-09-15 22:38:10
