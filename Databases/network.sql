@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `network` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `network`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: network
@@ -93,7 +91,7 @@ CREATE TABLE `net_services` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `service_name_UNIQUE` (`service_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +100,7 @@ CREATE TABLE `net_services` (
 
 LOCK TABLES `net_services` WRITE;
 /*!40000 ALTER TABLE `net_services` DISABLE KEYS */;
-INSERT INTO `net_services` VALUES (1,'Network',NULL,8001,'http','api'),(2,'Chetch Messaging',NULL,12000,'tcp',NULL),(3,'Captains Log',NULL,8005,'http','api'),(4,'Employees',NULL,8004,'http','api'),(5,'GPS',NULL,8003,'http','api'),(6,'Surf Forecast',NULL,8002,'http','api');
+INSERT INTO `net_services` VALUES (1,'Network',NULL,8001,'http','api'),(2,'Chetch Messaging',NULL,12000,'tcp',NULL),(3,'Captains Log',NULL,8005,'http','api'),(4,'Employees',NULL,8004,'http','api'),(5,'GPS',NULL,8003,'http','api'),(6,'Surf Forecast',NULL,8002,'http','api'),(7,'Alarms',NULL,8007,'http','api');
 /*!40000 ALTER TABLE `net_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,4 +168,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-02 19:36:30
+-- Dump completed on 2022-09-21 21:13:31
