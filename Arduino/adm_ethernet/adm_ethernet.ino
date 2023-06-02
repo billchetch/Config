@@ -114,6 +114,17 @@ void loop() {
   
   ADM->loop();
 
+  if(!EthernetManager::isLinked()){
+    if(TRACE)Serial.println("Ethernet not linked");
+    if(clientConnected){
+      clientConnected = false;
+      if(TRACE)Serial.println("Client still flagged as connected so setting to false and ending stream");
+      stream.end();
+    }
+    delay(100);
+    return;
+  }
+
   if(!clientConnected){
     client = server.available();
     if(client){
@@ -124,9 +135,11 @@ void loop() {
       delay(100);
     }
   } else {
+    //client is already connected so 
     clientConnected = client.connected();
     if(!clientConnected){
       if(TRACE)Serial.println("Client disconnected");
+      stream.end();
       delay(100);
     }
   }
