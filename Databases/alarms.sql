@@ -88,7 +88,7 @@ CREATE TABLE `alarm_log` (
   PRIMARY KEY (`id`),
   KEY `fk_alarm_idx` (`alarm_id`),
   CONSTRAINT `fk_alarm` FOREIGN KEY (`alarm_id`) REFERENCES `alarms` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=157148 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=157221 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `alarm_log` (
 
 LOCK TABLES `alarm_log` WRITE;
 /*!40000 ALTER TABLE `alarm_log` DISABLE KEYS */;
-INSERT INTO `alarm_log` VALUES (157146,14,'2023-07-04 07:58:29','CRITICAL','Parah ini',''),(157147,15,'2023-07-04 07:58:29','SEVERE','Engine crayfish:gs1 is running too fast @ 3002 RPM','');
+INSERT INTO `alarm_log` VALUES (157213,2,'2023-07-14 07:33:11','CRITICAL','Gensets alarm has been raised',''),(157214,2,'2023-07-14 07:33:12','OFF','Gensets alarm has been lowered',''),(157215,18,'2023-07-14 07:33:39','DISABLED',NULL,'Command sent from ACMCAPAlarms-2dbca05b-af21-32d3-93d1-0da8d0ae359d'),(157216,18,'2023-07-14 07:37:44','OFF',NULL,'Command sent from ACMCAPAlarms-2dbca05b-af21-32d3-93d1-0da8d0ae359d'),(157217,14,'2023-07-14 07:39:21','DISABLED',NULL,'Command sent from ACMCAPAlarms-2dbca05b-af21-32d3-93d1-0da8d0ae359d'),(157218,15,'2023-07-14 07:39:28','DISABLED',NULL,'Command sent from ACMCAPAlarms-2dbca05b-af21-32d3-93d1-0da8d0ae359d'),(157219,14,'2023-07-14 07:40:02','OFF',NULL,'Command sent from ACMCAPAlarms-2dbca05b-af21-32d3-93d1-0da8d0ae359d'),(157220,15,'2023-07-14 07:40:05','OFF',NULL,'Command sent from ACMCAPAlarms-2dbca05b-af21-32d3-93d1-0da8d0ae359d');
 /*!40000 ALTER TABLE `alarm_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,6 +116,7 @@ CREATE TABLE `alarms` (
   `pin_number` int DEFAULT NULL,
   `noise_threshold` int DEFAULT NULL,
   `active` tinyint NOT NULL DEFAULT '1',
+  `can_disable` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `device_id_UNIQUE` (`alarm_id`),
   UNIQUE KEY `pin_number_UNIQUE` (`pin_number`)
@@ -128,7 +129,7 @@ CREATE TABLE `alarms` (
 
 LOCK TABLES `alarms` WRITE;
 /*!40000 ALTER TABLE `alarms` DISABLE KEYS */;
-INSERT INTO `alarms` VALUES (1,'hw','High Water',NULL,11,250,1),(2,'gs','Gensets',NULL,10,250,1),(3,'iv','Inverter',NULL,9,250,1),(7,'idk-temp','Induk Temp','BBEngineRoom',NULL,NULL,1),(8,'idk-oil','Induk Oil','BBEngineRoom',NULL,NULL,1),(9,'idk-rpm','Induk RPM','BBEngineRoom',NULL,NULL,1),(10,'bnt-temp','Bantu Temp','BBEngineRoom',NULL,NULL,1),(11,'bnt-oil','Bantu Oil','BBEngineRoom',NULL,NULL,1),(12,'bnt-rpm','Bantu RPM','BBEngineRoom',NULL,NULL,1),(13,'gs1-temp','GS1 Temp','BBEngineRoom',NULL,NULL,1),(14,'gs1-oil','GS1 Oil','BBEngineRoom',NULL,NULL,1),(15,'gs1-rpm','GS1 RPM','BBEngineRoom',NULL,NULL,1),(16,'gs2-temp','GS2 Temp','BBEngineRoom',NULL,NULL,1),(17,'gs2-oil','GS2 Oil','BBEngineRoom',NULL,NULL,1),(18,'gs2-rpm','GS2 RPM','BBEngineRoom',NULL,NULL,1),(19,'pmp-clp','Pompa Celup','BBEngineRoom',NULL,NULL,1),(20,'pmp-sol','Pompa Solar','BBEngineRoom',NULL,NULL,1);
+INSERT INTO `alarms` VALUES (1,'hw','High Water',NULL,11,250,1,0),(2,'gs','Gensets',NULL,10,250,1,0),(3,'iv','Inverter',NULL,9,250,1,0),(7,'idk-temp','Induk Temp','BBEngineRoom',NULL,NULL,1,1),(8,'idk-oil','Induk Oil','BBEngineRoom',NULL,NULL,1,1),(9,'idk-rpm','Induk RPM','BBEngineRoom',NULL,NULL,1,1),(10,'bnt-temp','Bantu Temp','BBEngineRoom',NULL,NULL,1,1),(11,'bnt-oil','Bantu Oil','BBEngineRoom',NULL,NULL,1,1),(12,'bnt-rpm','Bantu RPM','BBEngineRoom',NULL,NULL,1,1),(13,'gs1-temp','GS1 Temp','BBEngineRoom',NULL,NULL,1,1),(14,'gs1-oil','GS1 Oil','BBEngineRoom',NULL,NULL,1,1),(15,'gs1-rpm','GS1 RPM','BBEngineRoom',NULL,NULL,1,1),(16,'gs2-temp','GS2 Temp','BBEngineRoom',NULL,NULL,1,1),(17,'gs2-oil','GS2 Oil','BBEngineRoom',NULL,NULL,1,1),(18,'gs2-rpm','GS2 RPM','BBEngineRoom',NULL,NULL,1,1),(19,'pmp-clp','Pompa Celup','BBEngineRoom',NULL,NULL,1,1),(20,'pmp-sol','Pompa Solar','BBEngineRoom',NULL,NULL,1,1);
 /*!40000 ALTER TABLE `alarms` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,4 +225,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-07  9:52:41
+-- Dump completed on 2023-07-14 16:13:27
